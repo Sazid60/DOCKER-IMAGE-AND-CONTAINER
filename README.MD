@@ -663,3 +663,65 @@ docker container stop clever_agnesi
 ![alt text](image-7.png)
 
 
+## 2-5 Deep Dive Into Docker Images
+
+- Docker image is a read only file. If we change it will not reflect the changes. 
+- Image builds one time so i is not gets automatically aware of the changes. we need to build again and start the container again
+- Yes, this can be a problem, especially when we make frequent changes during development. Rebuilding the container every time can feel slow and inefficient.To solve this, Docker provides faster ways to connect with the container so that changes reflect immediately in the output. We’ll learn these techniques gradually (like volume mounting and live reload).Also, Docker uses a caching mechanism during builds. When rebuilding an image, Docker only rebuilds the layers that have changed. Any unchanged layers are reused from the cache. This makes the rebuild process much faster and more efficient.
+
+
+```Dockerfile
+# Use Node.js 20 as the base image
+# This means our container will run in a Node.js 20 environment
+# Think of this like installing Node 20 on a fresh Linux machine
+FROM node:20
+
+# Set the working directory inside the container
+# This tells Docker: "From now on, run all commands inside /app"
+# It also creates the folder automatically if it does not exist
+#
+# Why important?
+# - All files we copy will go here (unless we specify another path)
+# - npm install will run inside this folder
+# - Our project will live here
+#
+# Without WORKDIR, Docker would use root (/) which is messy
+WORKDIR /app
+
+# Copy only package.json first
+# First "." = source (your local project folder)
+# Second "." = destination inside container (current WORKDIR => /app)
+#
+# Why copy package.json first?
+# Docker caching optimization:
+# If dependencies don't change, Docker won't reinstall npm packages
+COPY package.json .
+
+# Install dependencies inside the container
+# Runs inside /app because of WORKDIR
+# Equivalent to:
+# cd /app && npm install
+RUN npm install
+
+# Copy the rest of the project files into the container
+#
+# First "." = copy everything from current local folder
+# Second "." = paste into current container folder (/app)
+#
+# So this means:
+# Local project → /app inside container
+COPY . .
+
+# Expose port 5000
+# This is just documentation for Docker
+# It tells: "This app runs on port 5000 inside container"
+# To access from outside we still need -p mapping
+# we know the container is isolated so we need to connect through the port. basically we are telling docker that you expose through 5000 port to the pc 
+EXPOSE 5000
+
+# Default command when container starts after image
+# Runs: npm run dev
+# Example: starts Express dev server or Vite or Next.js dev mode
+CMD ["npm", "run", "dev"]
+# Its basically npm run dev which will run over container not while building the image
+```

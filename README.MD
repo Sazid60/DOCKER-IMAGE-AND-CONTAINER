@@ -611,3 +611,55 @@ Run app from the image
 ```
 
 ## 2-4 Building an Image & Running Container Based On Our Image
+
+- now lets build a image from the docker file we have made 
+
+
+```shell
+docker build .
+#  in the terminal 
+```
+
+- this is going to build an image of the docker and the `.` means the current directory. if the Dockerfile is in /src the the command will be `docker build ./src`
+
+```shell
+
+docker images
+```
+
+- in the terminal if we write this it will show the i9mages for the project 
+
+```shell
+ docker run -p 5000:5000 sha256:46e4f3eba05896ff1c4bb607fce55c3031a13c877e7cea56ed2f04f1068b6027
+ ## left 5000 means external and right is internal
+```
+or 
+
+```shell
+docker run -p 5000:5000 46e4f3eba058
+```
+![alt text](image-6.png)
+
+- this will run the project 
+
+- show just the running containers 
+
+```
+docker ps
+```
+
+- show all the container available 
+
+```
+docker ps -a
+```
+
+- to stop the container 
+
+```
+docker container stop clever_agnesi
+```
+
+![alt text](image-7.png)
+
+

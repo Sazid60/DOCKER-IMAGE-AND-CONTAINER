@@ -644,19 +644,19 @@ docker run -p 5000:5000 46e4f3eba058
 
 - show just the running containers 
 
-```
+```shell
 docker ps
 ```
 
 - show all the container available 
 
-```
+```shell
 docker ps -a
 ```
 
 - to stop the container 
 
-```
+```shell
 docker container stop clever_agnesi
 ```
 
@@ -725,3 +725,55 @@ EXPOSE 5000
 CMD ["npm", "run", "dev"]
 # Its basically npm run dev which will run over container not while building the image
 ```
+
+## 2-6 Managing Images & Containers
+
+- for all the command of docker 
+
+```shell
+docker --help 
+```
+
+- for in depth help tell the process and help 
+
+```shell
+docker container --help 
+```
+
+- When we build a image 
+  1. we can give tag to the image
+  2. can be listed docker images
+  3. can be analyzed docker image inspect
+  4. can be removed docker image using terminal as well.
+
+- When we Make a container 
+  1. can be named
+  2. can be configures in detail
+  3. can be listed docker ps
+  4. can be removed docker rm 
+
+- now lets see in practical 
+
+### Image 
+
+```shell
+docker build --help
+```
+```shell
+docker run --help
+```
+
+- There is a problem each and every time we try to run a container it creates a new container. 
+- If no code changes we can restart the same container instead of creating a new one. 
+
+```shell
+docker run -p 5000:5000 sha256:9e18c5d209a67745a6b5c1b12ec75221dab5c46c5460ebc92f65f54969d666f5
+```
+- nwe can run the container maually using the container id or name 
+
+```shell
+docker container start <container-id or name>
+
+```
+- but the problem is when we run using image it will be interactive and while running manually it will not be interactive.This is called detached mode. Its like it will be running in detached mode and so we need to attach the terminal to the container. Running using image is attached mode. 
+

@@ -923,3 +923,14 @@ docker push sazid60/ts-node-back:v1
 ```shell
 docker image tag docker-ts:2 sazid60/ts-node-back:v2
 ```
+
+## 2-11 Pulling Docker Image to DockerHub
+
+```shell
+docker pull sazid60/ts-node-back:v1
+```
+
+```shell
+docker run -p 5000:5000 --rm --name docker-app-container sazid60/ts-node-back:v1
+```
+- this will work like if available then run. if not it will fetch (pull) and run

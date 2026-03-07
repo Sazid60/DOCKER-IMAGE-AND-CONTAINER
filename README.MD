@@ -859,3 +859,67 @@ docker container prune
 ```shell
 docker run -p 5000:5000 --rm moby-dangling@sha256:4ea772ea64a5439ff850dd67de08e76efc7f9ca065ed44a154fe424ebc39268e
 ```
+
+## 2-9 Naming & Tagging Container & Images
+- when we were working it was giving weird id and a container name we need to configure on our own way. 
+- this will add a tag to the image 
+
+```shell
+docker build -t docker-ts:1 .
+
+```
+- here `docker-ts` is the name of the image and `1` is the tag
+
+
+![alt text](image-8.png)
+
+- suppose we will change in code and we want to build again we can give the same name but different tag 
+
+```shell
+docker build -t docker-ts:2 .
+```
+
+- we can run the container using the name and tag 
+
+```shell
+docker run -p 5000:5000 --rm docker-ts:2
+```
+
+- now lets set a name to the container 
+
+```shell
+docker run -p 5000:5000 --rm --name docker-app-container docker-ts:2
+```
+
+- as we have used proper naming for images and container the `prune` command will not be able to delete the images and container because they are not dangling. so we need to remove them manually using the name or tag. or use `-a tag`
+
+```shell
+docker image prune -a 
+```
+
+## 2-10 Pushing Docker Image to DockerHub
+
+![alt text](image-9.png)
+
+- first login to the docker hub in the terminal 
+
+```shell
+docker push sazid60/ts-node-back:tagname
+```
+
+- remember the image name and the repository name should be same
+
+
+```shell
+docker build -t sazid60/ts-node-back:v1 .
+```
+
+```shell
+docker push sazid60/ts-node-back:v1
+```
+
+- we can also rename the image name as well
+
+```shell
+docker image tag docker-ts:2 sazid60/ts-node-back:v2
+```

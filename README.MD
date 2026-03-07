@@ -777,3 +777,27 @@ docker container start <container-id or name>
 ```
 - but the problem is when we run using image it will be interactive and while running manually it will not be interactive.This is called detached mode. Its like it will be running in detached mode and so we need to attach the terminal to the container. Running using image is attached mode. 
 
+
+## 2-7 Detached Mode & Interactive Mode
+
+- when we run a container using the image it will be in interactive mode. but if we run the container manually it will be in detached mode.
+- we can run the image and make it detached mode using `-d` flag. 
+
+```shell
+docker run -p 5000:5000 -d sha256:9e18c5d209a67745a6b5c1b12ec75221dab5c46c5460ebc92f65f54969d666f5
+```
+- we can also run the container in interactive mode using `-it` flag. 
+
+```shell
+docker run -p 5000:5000 -it sha256:9e18c5d209a67745a6b5c1b12ec75221dab5c46c5460ebc92f65f54969d666f5
+```
+- we can also attach the terminal to the running container using `docker container attach <container-id or name>`
+
+```shell
+docker container start --attach <container-id or name>
+```
+- this will be interactive mode and we can do some interactions. but if it was a server we do not have to use `it` Because server will run until we close. as node is not a server it runs in `it`
+
+#### So the question is when we should use detached mode and when we should use interactive mode?
+- If we want to run a server or an application that should keep running in the background, we should use `detached mode`. This is common for production environments where you want your app to be always available without needing to keep a terminal open.
+- If we want to do development work, debugging, or any task that requires direct interaction with the container's terminal, we should use `interactive mode`. This allows us to run commands, see real-time output, and make changes on the fly.

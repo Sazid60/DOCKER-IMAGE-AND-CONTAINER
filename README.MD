@@ -801,3 +801,61 @@ docker container start --attach <container-id or name>
 #### So the question is when we should use detached mode and when we should use interactive mode?
 - If we want to run a server or an application that should keep running in the background, we should use `detached mode`. This is common for production environments where you want your app to be always available without needing to keep a terminal open.
 - If we want to do development work, debugging, or any task that requires direct interaction with the container's terminal, we should use `interactive mode`. This allows us to run commands, see real-time output, and make changes on the fly.
+
+
+## 2-8 Deep Dive Into Container
+- image and container takes a huge storage . so the managing container and image is very important.
+- see the images 
+
+```shell
+docker images
+```
+- see the container 
+
+```shell
+docker ps
+```
+
+```shell
+docker ps -a
+```
+
+
+### lets see how we can remove he docker images 
+
+
+```shell
+docker image rmi sha256:9e18c5d209a67745a6b5c1b12ec75221dab5c46c5460ebc92f65f54969d666f5
+
+
+// or we can add multimle image id to remove multiple images at a time
+docker image rmi <image-id1> <image-id2> <image-id3>
+
+docker image prune
+```
+
+- remember we can not delete a image if any container is made from it 
+
+
+### lets remove a container 
+
+
+```shell
+docker container rm  charming_feynman 
+
+// or we can add multiple container id to remove multiple container at a time
+docker container rm <container-id1> <container-id2> <container-id3>
+```
+
+- if we want to delete all the container at a time we can use this command 
+
+```shell
+docker container prune
+```
+
+
+### one another concept is if we stop a container or image it will automatically remove after some time. this is called auto remove. we can use `--rm` flag to do this. 
+
+```shell
+docker run -p 5000:5000 --rm moby-dangling@sha256:4ea772ea64a5439ff850dd67de08e76efc7f9ca065ed44a154fe424ebc39268e
+```

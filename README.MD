@@ -896,3 +896,30 @@ docker run -p 5000:5000 --rm --name docker-app-container docker-ts:2
 ```shell
 docker image prune -a 
 ```
+
+## 2-10 Pushing Docker Image to DockerHub
+
+![alt text](image-9.png)
+
+- first login to the docker hub in the terminal 
+
+```shell
+docker push sazid60/ts-node-back:tagname
+```
+
+- remember the image name and the repository name should be same
+
+
+```shell
+docker build -t sazid60/ts-node-back:v1 .
+```
+
+```shell
+docker push sazid60/ts-node-back:v1
+```
+
+- we can also rename the image name as well
+
+```shell
+docker image tag docker-ts:2 sazid60/ts-node-back:v2
+```

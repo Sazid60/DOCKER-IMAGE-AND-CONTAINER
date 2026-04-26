@@ -934,3 +934,4 @@ docker pull sazid60/ts-node-back:v1
 docker run -p 5000:5000 --rm --name docker-app-container sazid60/ts-node-back:v1
 ```
 - this will work like if available then run. if not it will fetch (pull) and run
+- image and container understanding complete
